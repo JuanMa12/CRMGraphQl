@@ -14,13 +14,13 @@ function Sidebar() {
             </div>
 
             <nav className='mt-5 list-none'>
-                <li className={router.pathname === '/admin/clients' ? "bg-blue-800 p-2" : "p-2"}>
+                <li className={router.pathname === '/admin/clients' ? "bg-gray-600 p-2" : "p-2"}>
                     <Link href="/admin/clients"><a className='text-white block'>Clients</a></Link>
                 </li>
-                <li className={router.pathname === '/admin/orders' ? "bg-blue-800 p-2" : "p-2"}>
+                <li className={router.pathname === '/admin/orders' ? "bg-gray-600 p-2" : "p-2"}>
                     <Link href="/admin/orders"><a className='text-white block'>Orders</a></Link>
                 </li>
-                <li className={router.pathname === '/admin/products' ? "bg-blue-800 p-2" : "p-2"}>
+                <li className={router.pathname === '/admin/products' ? "bg-gray-600 p-2" : "p-2"}>
                     <Link href="/admin/products"><a className='text-white block'>Products</a></Link>
                 </li>
             </nav>

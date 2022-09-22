@@ -32,7 +32,7 @@ export default function Home() {
                     .min(6, 'Password min 6 characters'),
     }),
     onSubmit: async values => {
-      console.log(values)
+      //console.log(values)
       const { email, password } = values
 
       try {
@@ -44,7 +44,7 @@ export default function Home() {
             }
           }
         })
-        console.log(data)
+        //console.log(data)
         const token = data.authenticateUser.token
         localStorage.setItem('token', token)
         router.push('/admin/clients')
