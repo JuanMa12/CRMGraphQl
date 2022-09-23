@@ -17,11 +17,11 @@ function Sidebar() {
                 <li className={router.pathname === '/admin/clients' ? "bg-gray-600 p-2" : "p-2"}>
                     <Link href="/admin/clients"><a className='text-white block'>Clients</a></Link>
                 </li>
-                <li className={router.pathname === '/admin/orders' ? "bg-gray-600 p-2" : "p-2"}>
-                    <Link href="/admin/orders"><a className='text-white block'>Orders</a></Link>
-                </li>
                 <li className={router.pathname === '/admin/products' ? "bg-gray-600 p-2" : "p-2"}>
                     <Link href="/admin/products"><a className='text-white block'>Products</a></Link>
+                </li>
+                <li className={router.pathname === '/admin/orders' ? "bg-gray-600 p-2" : "p-2"}>
+                    <Link href="/admin/orders"><a className='text-white block'>Orders</a></Link>
                 </li>
             </nav>
         </aside>

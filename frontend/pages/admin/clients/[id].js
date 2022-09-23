@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Swal from 'sweetalert2'
 
-const CLIENT = gql`
+const GET_CLIENT = gql`
   query getClient ($id: ID!) {
     getClient(id: $id) {
       name
@@ -26,6 +26,19 @@ const UPDATE_CLIENT = gql`
   }
 `;
 
+const LIST_CLIENTS = gql`
+  query getClientsSeller {
+    getClientsSeller {
+      id
+      name
+      surname
+      business
+      email
+      phone
+    }
+  }
+`;
+
 function EditClient() {
     const router = useRouter()
     const { query: { id } } = router
@@ -33,12 +46,22 @@ function EditClient() {
     const [message, setMessage] = useState(null)
 
     // query
-    const { data, loading, error } = useQuery(CLIENT, {
+    const { data, loading, error } = useQuery(GET_CLIENT, {
         variables: { id }
     })
 
     // mutation 
-    const [ updateClient ] = useMutation(UPDATE_CLIENT)
+    const [ updateClient ] = useMutation(UPDATE_CLIENT,{
+      update(cache, { data: { updateClient  } }) {
+        console.log('test')
+        // obtain cache
+        const { getClientsSeller } = cache.readQuery({ query : LIST_CLIENTS })
+        console.log(getClientsSeller)
+        cache.writeQuery({ query : LIST_CLIENTS, data: {
+          getClientsSeller: [...getClientsSeller, updateClient]
+        } })
+      }
+    })
 
     const validationSchema = Yup.object ({
         name: Yup.string().required('Name is required'),

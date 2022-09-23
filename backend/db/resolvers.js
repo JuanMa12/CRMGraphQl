@@ -16,6 +16,11 @@ const createToken = (user, secret, expiresIn) => {
 
 const resolvers = {
     Query: {
+        getAuth: async (_, {},ctx) => {
+            const user = await ctx.user
+
+            return user
+        },
         getUser: async (_, {token}) => {
             const userId = await jwt.verify(token, process.env.JWT_SECRET)
 
@@ -43,6 +48,7 @@ const resolvers = {
             }
         },
         getClients: async () => {
+            console.log('GET CLIENTS')
             try {
                 const clients = await Client.find({})
 
@@ -53,8 +59,8 @@ const resolvers = {
         },
         getClientsSeller: async (_, {}, ctx) => {
             try {
-                const clients = await Client.find({ seller : ctx.user.id.toString()})
-
+                const clients = await Client.find({ seller : ctx.user.id.toString() })
+                
                 return clients
             } catch (error) {
                 console.log(error)
@@ -79,15 +85,6 @@ const resolvers = {
         getOrders: async () => {
             try {
                 const orders = await Order.find({})
-
-                return orders
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        getClientsSeller: async (_, {}, ctx) => {
-            try {
-                const orders = await Order.find({ user : ctx.user.id.toString()})
 
                 return orders
             } catch (error) {
@@ -273,20 +270,22 @@ const resolvers = {
             }
         },
         newClient: async (_, {input}, ctx) => {
+            console.log('##### NEW CLIENT #####')
             const { email } = input
             
             const client = await Client.findOne({ email })
+            console.log(client)
             if(client) {
                 throw new Error('Client exists...') 
             }
             // save in db
-            const newClient = await new Client(input)
-            newClient.seller = ctx.user.id;
+            const register = await new Client(input)
+            register.seller = ctx.user.id;
 
             try {
-                newClient.save()
+                register.save()
 
-                return newClient
+                return register
             } catch (error) {
                 console.log(error)
             }

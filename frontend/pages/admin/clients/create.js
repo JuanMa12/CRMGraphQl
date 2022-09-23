@@ -18,8 +18,10 @@ const LIST_CLIENTS = gql`
     getClientsSeller {
       id
       name
+      surname
       business
       email
+      phone
     }
   }
 `;

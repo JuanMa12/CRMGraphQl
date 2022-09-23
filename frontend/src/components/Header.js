@@ -25,8 +25,9 @@ function Header() {
 
     const { id, name, surname } = data.getAuth;
 
-    const logout = () => {
+    const logout = async () => {
         localStorage.removeItem("token")
+        //current.clearStore()
         router.push('/')
     }
 

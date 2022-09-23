@@ -23,7 +23,7 @@ const typeDefs = gql`
         surname: String
         business: String
         email: String
-        phone: String,
+        phone: String
         seller: ID
     }
 
@@ -102,6 +102,7 @@ const typeDefs = gql`
 
     type Query {
         # Users
+        getAuth : UserSchema
         getUser(token: String!) : UserSchema
 
         # Products
