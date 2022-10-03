@@ -19,12 +19,12 @@ const server = new ApolloServer({
         const token = req.headers["authorization"] || '';
         const token_remove_bearer = token.replace('Bearer ','');
         console.log("TOKEN:::",token)
-        console.log("____________________")
+        //console.log("____________________")
         if(token) {
             try {
                 const user = jwt.verify(token_remove_bearer, process.env.JWT_SECRET);
-                console.log(user)
-                console.log("____________________")
+                //console.log(user)
+                //console.log("____________________")
                 return { user }
                 
             } catch (error) {

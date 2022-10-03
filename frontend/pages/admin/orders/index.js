@@ -3,27 +3,36 @@ import { useQuery, gql } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import ListProducts from '../../../src/components/sections/ListProducts'
+import ListOrders from '../../../src/components/sections/ListOrders'
 
-const LIST_PRODUCTS = gql`
-  query getProducts {
-    getProducts {
+const LIST_ORDERS = gql`
+  query getOrdersSeller {
+    getOrdersSeller {
       id
-      name
-      stock
-      price
+      order {
+        id
+        name
+        quantity
+      }
+      client {
+        name
+        surname
+        email
+        phone
+      }
+      total
     }
   }
 `;
 
-function products() {
+function orders() {
   const router = useRouter()
 
-  const { data, loading, error } = useQuery(LIST_PRODUCTS)
+  const { data, loading, error } = useQuery(LIST_ORDERS)
 
   if(loading) return 'Cargando...';
-
-  if(!data.getProducts) {
+  
+  if(!data.getOrdersSeller) {
     return router.push('/')
   }     
 
@@ -37,24 +46,11 @@ function products() {
         </a>
       </Link>
 
-
-      <table className='table-auto shadow-md mt-10 w-full w-lg'>
-          <thead className='bg-gray-800'>
-            <tr className='text-white'>
-              <th className='w-1/5 py-2'>Name</th>
-              <th className='w-1/5 py-2'>Stock</th>
-              <th className='w-1/5 py-2'>Price</th>
-              <th className='w-1/5 py-2'>Acciones</th>
-            </tr>
-          </thead>
-          <tbody className='bg-white'>
-            {data.getProducts.map(product => (
-              <ListProducts key={product.id} product={product} />
-            ))}
-          </tbody>
-      </table>
+      {data.getOrdersSeller.map(order => (
+        <ListOrders key={order.id} order={order} />
+      ))}
     </>
   )
 }
 
-export default products
+export default orders

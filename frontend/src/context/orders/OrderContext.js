@@ -1,6 +1,7 @@
 import { createContext } from "react";
 
-const orderContext = createContext()
+const OrderContext = createContext()
 
 
-export default orderContext 
+export default OrderContext
+ 

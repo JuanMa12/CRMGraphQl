@@ -72,7 +72,7 @@ function ListProducts({ product }) {
     <tr>
       <td className='border px-4 py-2'>{name}</td>
       <td className='border px-4 py-2'>{stock}</td>
-      <td className='border px-4 py-2'>{price}</td>
+      <td className='border px-4 py-2'>${price.toLocaleString('es-ES')}</td>
       <td className='border px-4 py-2 flex'>
         <button className='flex justify-center items-center bg-red-800 py-2 px-4 w-full text-white rounded text-xs uppercase' 
           type='button' onClick={ () => confirmDeleteProduct() } >

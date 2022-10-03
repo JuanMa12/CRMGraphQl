@@ -5,10 +5,9 @@ import OrderReducer from "./OrderReducer"
 import {
     SELECT_CLIENT,
     SELECT_PRODUCTS,
-    QUANTITY_PRODUCTS
+    QUANTITY_PRODUCTS,
+    UPDATE_TOTAL
 } from '../../types'
-import products from "../../../pages/admin/orders";
-
 
 const OrderState = ({children}) => {
 
@@ -29,17 +28,45 @@ const OrderState = ({children}) => {
     }
 
     const addProductsState = products => {
-        //console.log(client)
+
+        let newState;
+        if(state.products > 0) {
+            newState = products.map( item => {
+                const newItem = state.products.find( productState => productState.id == item.id)
+                return {...item, ...newItem}
+            })
+        } else {
+            newState = products;
+        }
+
         dispatch({
             type: SELECT_PRODUCTS,
-            payload: products
+            payload: newState
+        })
+    }
+
+    const quantityProductsState = quantity => {
+        dispatch({
+            type: QUANTITY_PRODUCTS,
+            payload: quantity
+        })
+    }
+
+    const updateTotalState = () => {
+        dispatch({
+            type: UPDATE_TOTAL
         })
     }
 
     return (
         <OrderContext.Provider value={{
-            addClientState, 
-            addProductsState
+                client: state.client,
+                products: state.products,
+                total: state.total,
+                addClientState, 
+                addProductsState,
+                quantityProductsState,
+                updateTotalState
             }}>
             {children}
         </OrderContext.Provider>
