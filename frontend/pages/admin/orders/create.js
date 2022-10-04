@@ -17,6 +17,28 @@ const NEW_ORDER = gql`
   }
 `;
 
+const LIST_ORDERS = gql`
+  query getOrdersSeller {
+    getOrdersSeller {
+      id
+      order {
+        id
+        name
+        quantity
+      }
+      client {
+        id
+        name
+        surname
+        email
+        phone
+      }
+      total
+      status
+    }
+  }
+`;
+
 function addOrder() {
   const router = useRouter()
   const [message, setMessage] = useState(null)
@@ -25,17 +47,17 @@ function addOrder() {
   const { client, products, total } = orderContext
 
   // mutation 
-  const [ newOrder ] = useMutation(NEW_ORDER
-  //   {
-  //   update(cache, { data: { newOrder }  }) {
-  //     // obtain cache
-  //     const { getProducts } = cache.readQuery({ query : LIST_PRODUCTS })
+  const [ newOrder ] = useMutation(NEW_ORDER,
+    {
+    update(cache, { data: { newOrder }  }) {
+      // obtain cache
+      const { getOrdersSeller } = cache.readQuery({ query : LIST_ORDERS })
 
-  //     cache.writeQuery({ query : LIST_PRODUCTS, data: {
-  //       getProducts: [...getProducts, newOrder]
-  //     } })
-  //   }
-  // }
+      cache.writeQuery({ query : LIST_ORDERS, data: {
+        getOrdersSeller: [...getOrdersSeller, newOrder]
+      } })
+    }
+  }
   )
 
   const validOrder = () => {

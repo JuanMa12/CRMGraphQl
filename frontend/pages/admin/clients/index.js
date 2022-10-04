@@ -13,6 +13,7 @@ const LIST_CLIENTS = gql`
       surname
       business
       email
+      phone
     }
   }
 `;

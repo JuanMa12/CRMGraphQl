@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import { useMutation, gql } from '@apollo/client'
 import Swal from 'sweetalert2'
-import Router from 'next/router'
 
 const REMOVE_ORDER = gql`
   mutation removeOrder($id: ID!) {
@@ -10,19 +9,52 @@ const REMOVE_ORDER = gql`
 `;
 
 const LIST_ORDERS = gql`
-  query getOrders {
-    getOrders {
+  query getOrdersSeller {
+    getOrdersSeller {
       id
+      order {
+        id
+        name
+        quantity
+      }
+      client {
+        id
+        name
+        surname
+        email
+        phone
+      }
+      status
+      total
+    }
+  }
+`;
+
+const UPDATE_ORDER = gql`
+  mutation updateOrder($id: ID!, $input: OrderInput) {
+    updateOrder(id: $id,input: $input) {
+      status
     }
   }
 `;
 
 function ListOrders({ order }) {
 
-  const { id , total, client: { name , surname, email, phone }, status } = order
+  const { id , total, client: { name , surname, email, phone }, status, client } = order
 
   const [ statusOrder, setStatusOrder ] = useState(status)
   const [ classOrder, setClassOrder ] = useState('')
+
+  const [ updateOrder ] = useMutation(UPDATE_ORDER,  {
+    update(cache, { data: { updateOrder }  }) {
+        // obtain cache
+        const { getOrdersSeller } = cache.readQuery({ query : LIST_ORDERS })
+
+        cache.writeQuery({ query : LIST_ORDERS, data: {
+          getOrdersSeller: [...getOrdersSeller, updateOrder]
+        }})
+      }
+  })
 
   useEffect( () => {
     if(statusOrder) {
@@ -32,7 +64,6 @@ function ListOrders({ order }) {
   }, [statusOrder] )
 
   const classOrderChange = () => {
-    console.log(statusOrder)
     if(statusOrder === 'PENDING') {
         setClassOrder('border-yellow-500')
     } else if (statusOrder === 'COMPLETED') {
@@ -45,10 +76,10 @@ function ListOrders({ order }) {
   const [ removeOrder ] = useMutation(REMOVE_ORDER, {
     update(cache, { data: { removeOrder }  }) {
         // obtain cache
-        const { getOrders } = cache.readQuery({ query : LIST_ORDERS })
+        const { getOrdersSeller } = cache.readQuery({ query : LIST_ORDERS })
 
         cache.writeQuery({ query : LIST_ORDERS, data: {
-          getOrders: getOrders.filter( item => item.id !== id)
+          getOrdersSeller: getOrdersSeller.filter( item => item.id !== id)
         }})
       }
     })
@@ -88,6 +119,23 @@ function ListOrders({ order }) {
     })
   }
 
+  const changeValueStatus = async newStatus => {
+    try {
+      const { data } = await updateOrder({
+        variables: {
+          id,
+          input: {
+            status: newStatus,
+            client: client.id
+          }
+        }
+      })
+      setStatusOrder(data.updateOrder.status)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className={` ${classOrder} border-t-4 mt-4 bg-white rounded p-6 md:grid md:grid-cols-2 md:gap-4 shadow-lg`}>
       <div>
@@ -111,7 +159,7 @@ function ListOrders({ order }) {
           )}
           <h2 className='text-gray-800 font-bold mt-5'>Status Order:</h2>
           <select className='mt-2 appearance-none bg-gray-600 border border-gray-600 text-white p-2 text-center rounded leading-tight focus:outline-none focus:bg-gray-800 focus:border-gray-700 uppercase text-xs font-bold'
-            value={statusOrder}>
+            value={statusOrder} onChange={ e => changeValueStatus(e.target.value) }>
             <option value="PENDING">PENDING</option>
             <option value="COMPLETED">COMPLETED</option>
             <option value="CANCELLED">CANCELLED</option>

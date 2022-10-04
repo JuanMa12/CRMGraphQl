@@ -53,7 +53,7 @@ function EditProduct() {
         console.log('test')
         // obtain cache
         const { getProducts } = cache.readQuery({ query : LIST_PRODUCTS })
-        console.log(getProducts)
+        
         cache.writeQuery({ query : LIST_PRODUCTS, data: {
           getProducts: [...getProducts, updateProduct]
         } })

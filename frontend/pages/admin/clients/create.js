@@ -35,7 +35,7 @@ function addClient() {
     update(cache, { data: { newClient }  }) {
       // obtain cache
       const { getClientsSeller } = cache.readQuery({ query : LIST_CLIENTS })
-
+      
       cache.writeQuery({ query : LIST_CLIENTS, data: {
         getClientsSeller: [...getClientsSeller, newClient]
       } })

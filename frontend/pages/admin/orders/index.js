@@ -15,11 +15,13 @@ const LIST_ORDERS = gql`
         quantity
       }
       client {
+        id
         name
         surname
         email
         phone
       }
+      status
       total
     }
   }
