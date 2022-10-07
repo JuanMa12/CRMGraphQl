@@ -93,7 +93,7 @@ const resolvers = {
         },
         getOrdersSeller: async (_, {}, ctx) => {
             try {
-                const orders = await Order.find({ seller : ctx.user.id }).populate('client')
+                const orders = await Order.find({ user : ctx.user.id }).populate('client')
                 
                 return orders
             } catch (error) {

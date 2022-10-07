@@ -32,8 +32,8 @@ function Header() {
     }
 
   return (
-    <div className='flex justify-between mb-6 border-b-4 border-gray-800 py-2'>
-        <p className=''>Hi, {name} {surname}. </p>
+    <div className='sm:flex justify-between mb-6 border-b-4 border-gray-800 py-2'>
+        <p className='mb-2 lg:mb-0'>Hi, {name} {surname}. </p>
         <button className='bg-gray-800 w-full sm:w-auto font-bold uppercase text-xs rounded py-1 px-2 text-white shadow-md' 
             type='button' onClick={() => logout()}>
             Logout

@@ -50,12 +50,12 @@ const typeDefs = gql`
 
     type TopClient {
         total: Float
-        client: ClientSchema
+        client: [ClientSchema]
     }
 
     type TopUser {
         total: Float
-        user: UserSchema
+        user: [UserSchema]
     }
 
     input UserInput {

@@ -20,7 +20,7 @@ function Layout({children}) {
           </div>
         ) : (
           <div className='bg-gray-200 min-h-screen'>
-            <div className='flex min-h-screen'>
+            <div className='sm:flex min-h-screen'>
                 <Sidebar />
                 <main className='4/5 sm:min-h-screen p-5 w-full'>
                     <Header />

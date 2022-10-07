@@ -45,9 +45,16 @@ export default function Home() {
           }
         })
         //console.log(data)
-        const token = data.authenticateUser.token
-        localStorage.setItem('token', token)
-        router.push('/admin/clients')
+        setMessage('Login in proccess...')
+        
+        setTimeout(() => {
+          const { token } = data.authenticateUser
+          localStorage.setItem('token', token)
+        },1000)
+        
+        setTimeout(() => {
+          router.push('/admin/clients')
+        },1000)
       } catch (error) {
         console.log(error)
         setMessage(error.message)

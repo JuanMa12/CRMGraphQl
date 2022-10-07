@@ -43,7 +43,7 @@ function orders() {
       <h1 className='text-2xl text-gray-800 font-light'>Orders</h1>
 
       <Link href="/admin/orders/create">
-        <a className='bg-gray-800 py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-600'>
+        <a className='bg-gray-800 w-full lg:w-auto text-center py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-600'>
           ADD ORDER
         </a>
       </Link>
