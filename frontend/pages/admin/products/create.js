@@ -25,7 +25,7 @@ const LIST_PRODUCTS = gql`
   }
 `;
 
-function addProduct() {
+function AddProduct() {
   const router = useRouter()
   const [message, setMessage] = useState(null)
 
@@ -144,4 +144,4 @@ function addProduct() {
   )
 }
 
-export default addProduct
+export default AddProduct

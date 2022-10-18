@@ -26,7 +26,7 @@ const LIST_CLIENTS = gql`
   }
 `;
 
-function addClient() {
+function AddClient() {
   const router = useRouter()
   const [message, setMessage] = useState(null)
 
@@ -180,4 +180,4 @@ function addClient() {
   )
 }
 
-export default addClient
+export default AddClient

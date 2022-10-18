@@ -39,7 +39,7 @@ const LIST_ORDERS = gql`
   }
 `;
 
-function addOrder() {
+function AddOrder() {
   const router = useRouter()
   const [message, setMessage] = useState(null)
 
@@ -125,4 +125,4 @@ function addOrder() {
   )
 }
 
-export default addOrder
+export default AddOrder

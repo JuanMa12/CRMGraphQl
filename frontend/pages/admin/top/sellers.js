@@ -17,7 +17,7 @@ query topUsers {
 `;
 
 
-function sellers() {
+function TopSellers() {
 
    const { data, loading, error, startPolling, stopPolling } = useQuery(TOP_USERS);
 
@@ -70,4 +70,4 @@ function sellers() {
   )
 }
 
-export default sellers
+export default TopSellers

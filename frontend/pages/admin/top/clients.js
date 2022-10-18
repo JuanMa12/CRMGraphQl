@@ -17,7 +17,7 @@ query topClients {
 `;
 
 
-function clients() {
+function TopClients() {
 
    const { data, loading, error, startPolling, stopPolling } = useQuery(TOP_CLIENTS);
 
@@ -70,4 +70,4 @@ function clients() {
   )
 }
 
-export default clients
+export default TopClients

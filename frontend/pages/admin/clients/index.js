@@ -18,7 +18,7 @@ const LIST_CLIENTS = gql`
   }
 `;
 
-function clients() {
+function Clients() {
   const router = useRouter()
 
   const { data, loading, error } = useQuery(LIST_CLIENTS)
@@ -60,4 +60,4 @@ function clients() {
   )
 }
 
-export default clients
+export default Clients

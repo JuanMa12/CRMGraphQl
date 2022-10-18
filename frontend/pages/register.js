@@ -17,7 +17,7 @@ const NEW_USER = gql`
   }
 `;
 
-function register() {
+function Register() {
   const router = useRouter()
   const [message, setMessage] = useState(null)
 
@@ -156,4 +156,4 @@ function register() {
   )
 }
 
-export default register
+export default Register

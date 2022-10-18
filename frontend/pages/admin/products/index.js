@@ -16,7 +16,7 @@ const LIST_PRODUCTS = gql`
   }
 `;
 
-function products() {
+function Products() {
   const router = useRouter()
 
   const { data, loading, error } = useQuery(LIST_PRODUCTS)
@@ -58,4 +58,4 @@ function products() {
   )
 }
 
-export default products
+export default Products
